@@ -36,9 +36,10 @@ public class EmailService : IEmailService
     public void SendResetPassword(string username, string fallbackUrl)
     {
         var subject = "Confirm Your Email for Expense Tracker Manager";
-        var body = File.ReadAllText("C:\\Users\\DAVRON 41\\Desktop\\CountriesAPI\\USTOZ\\ExpenseTrackerDavron\\ExpenseTracker\\ExpenseTracker.Infrastructure\\Email\\Templates\\ResetPassword.html")
+        var body = File.ReadAllText("D:\\.NET C#\\ExpenseTracker_\\ExpenseTracker\\ExpenseTracker.Infrastructure\\Email\\Templates\\ResetPassword.html")
                        .Replace("[UserName]", username)
                        .Replace("[FallbackUrl]", fallbackUrl);
+
 
         var message = new MimeMessage();
         message.From.Add(new MailboxAddress("Expense Tracker Manager", "noreply@expense-manager.uz"));
@@ -63,7 +64,7 @@ public class EmailService : IEmailService
     private MimeMessage CreateEmailMessage(string userName, string fallbackUrl)
     {
         var subject = "Confirm Your Email for Expense Tracker Manager";
-        var body = File.ReadAllText("C:\\Users\\DAVRON 41\\Desktop\\CountriesAPI\\USTOZ\\ExpenseTrackerDavron\\ExpenseTracker\\ExpenseTracker.Infrastructure\\Email\\Templates\\EmailConfirmation.html")
+        var body = File.ReadAllText("D:\\.NET C#\\ExpenseTracker_\\ExpenseTracker\\ExpenseTracker.Infrastructure\\Email\\Templates\\EmailConfirmation.html")
                        .Replace("[UserName]", userName)
                        .Replace("[ConfirmationLink]", fallbackUrl);
 
