@@ -116,6 +116,7 @@ public class AccountController : Controller
     {
         return View();
     }
+    
     [HttpPost]
     public async Task<IActionResult> ConfirmEmail(string email, string token)
     {
