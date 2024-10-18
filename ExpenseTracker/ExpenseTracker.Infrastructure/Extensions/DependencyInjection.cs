@@ -31,7 +31,7 @@ public static class DependencyInjection
         services
             .AddIdentity<IdentityUser<Guid>, IdentityRole<Guid>>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
 
                 options.Password.RequireDigit = true;

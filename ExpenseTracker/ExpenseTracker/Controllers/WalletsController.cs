@@ -90,7 +90,7 @@ public class WalletsController : Controller
     /// <summary>
     /// Filters wallets
     /// </summary>
-    /// <param name="request"></param>
+    /// <param name="search"></param>
     /// <returns>List of filtered wallets</returns>
     [Route("getWallets")]
     public ActionResult<WalletViewModel> GetWallets([FromQuery] GetWalletsRequest request)

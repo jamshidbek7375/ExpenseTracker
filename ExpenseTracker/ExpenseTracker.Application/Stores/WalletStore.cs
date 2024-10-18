@@ -20,8 +20,8 @@ internal sealed class WalletStore : IWalletStore
     public List<WalletViewModel> GetAll(GetWalletsRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
-
-        var wallets = _repository.Wallets.GetAll(request.UserId);
+        
+        var wallets = _repository.Wallets.GetAll(request.UserId,request.Search);
 
         var viewModels = wallets
             .Select(x => x.ToViewModel())
