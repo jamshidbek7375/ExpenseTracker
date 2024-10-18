@@ -36,7 +36,7 @@ public static class WalletMappings
     
     public static Wallet ToUpdateEntity(this UpdateWalletRequest request) => new()
     {
-        Id= request.Id,
+        Id = request.Id,
         Name = request.Name,
         Description = request.Description,
         Balance = request.Balance,
