@@ -1,0 +1,80 @@
+﻿@model ExpenseTracker.Application.Requests.WalletShare.CreateWalletShareRequest;
+
+@{
+    ViewData["PageTitle"] = "Share wallet";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="widget p-5" style="background-color:#212b36;">
+            <h4 class="text-center mb-5">Share @ViewBag.WalletName</h4>
+            <form asp-action="Share" method="post">
+                <ejs-numerictextbox id="wallet-id" ejs-for="WalletId" allowObjectBinding="true" type="hidden"></ejs-numerictextbox>
+                <input type="hidden" id="users-list-input" asp-for="@Model.UsersToShareJson" />
+                <div class="d-flex justify-content-between">
+                    <div class="mb-3">
+                        <ejs-textbox id="user-email"
+                                     placeholder="Enter user email"
+                                     floatLabelType="Never"
+                                     showClearButton="true"
+                                     multiline="false"></ejs-textbox>
+                    </div>
+                    <div class="mb-3">
+                        <ejs-button id="add-user-button"
+                                    content="Add user"
+                                    cssClass="e-success"
+                                    type="button"
+                                    onclick="onAddUser()"></ejs-button>
+                    </div>
+                </div>
+                <div class="my-5" style="height: 200px; overflow-y: scroll;">
+                    <h5 class="text-center">Selected users</h5>
+                    <ejs-listview id="users-list">
+                        <e-listview-fieldsettings text="Text" id="Id">
+                        </e-listview-fieldsettings>
+                    </ejs-listview>
+                </div>
+                <div class="d-grid">
+                    <ejs-button id="submit" type="submit" content="Submit" cssClass="e-success"></ejs-button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="widget h-100 d-flex justify-content-center align-items-center">
+            <i class="fa-solid fa-shapes fa-2xl"></i>
+        </div>
+    </div>
+</div>
+
+<style>
+    .lSize {
+        font-family: "Roboto", "Segoe UI", "GeezaPro", "DejaVu Serif", "sans-serif";
+        font-size: 13px;
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<script>
+    function onAddUser() {
+        const usersList = document.getElementById("users-list").ej2_instances[0];
+        const usersListInput = document.getElementById("users-list-input");
+        const user = document.getElementById("user-email").ej2_instances[0].properties.value;
+
+        const currentUsers = usersList.dataSource;
+
+        if (currentUsers.some(el => user === el.text)) {
+            return;
+        }
+
+        const data = {
+            Text: user,
+        };
+        usersList.addItem([user]);
+        const json = JSON.stringify([...usersList.dataSource]);
+        usersListInput.value = json;
+
+        console.log(json);
+    }
+</script>

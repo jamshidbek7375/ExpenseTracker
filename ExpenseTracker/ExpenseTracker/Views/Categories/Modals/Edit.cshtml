@@ -1,0 +1,94 @@
+﻿@model ExpenseTracker.Application.ViewModels.Category.CategoryViewModel;
+
+
+<div class="modal fade" id="updateCategoryModal" tabindex="-1" aria-labelledby="updateCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateCategoryModalLabel">Update Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateCategoryForm" asp-action="Edit" method="post">
+                    
+                    <input type="hidden" id="categoryIdEdit" name="Id" value="@Model.Id">
+                    <div class="mb-3">
+                        <label for="categoryNameEdit" class="form-label"> Name</label>
+                        <input type="text" class="form-control" id="categoryNameEdit" name="Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categoryDescriptionEdit" class="form-label"> Description</label>
+                        <input type="text" class="form-control" id="categoryDescriptionEdit" name="Description" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categoryTypeEdit" class="form-label"> Type</label>
+                        <select class="form-select" id="categoryTypeEdit" name="Type">
+                            <option value="0">Income</option>
+                            <option value="1">Expense</option>
+                        </select>
+                    </div>
+                    <idv class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="submitBtn" onclick="confirmUpdateCategory()">Update</button>
+                    </idv>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Function to handle opening the update modal
+    function openUpdateModal(id) {
+        $.ajax({
+
+            type: 'GET',
+            url: `/categories/details/${id}`,
+
+            success: function (data) {
+                console.log(data);
+                $('#categoryNameEdit').val(data.Name);
+                $('#categoryDescriptionEdit').val(data.Description);
+                $('#categoryTypeEdit').val(data.Type);
+                $('#categoryIdEdit').val(data.Id);
+
+                $('#updateCategoryModal').modal('show');
+            },
+            error: function (error) {
+                console.log('Error fetching category details:', error);
+            }
+        });
+    };
+    // Handle Update form submission
+    function confirmUpdateCategory() {
+        var formData = $('#updateCategoryForm').serialize();
+        var id = $('#categoryIdEdit').val();
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/categories/edit/' + id,
+            headers: {
+                'RequestVerificationToken': token
+            },
+            data: formData,
+            success: function (response) {
+                if (response.success) {
+
+
+                    $('#updateCategoryModal').modal('hide');
+
+                    loadCategories()
+                } else {
+                    console.log('Edit failed:', response.errors);
+                    alert('Update failed. Please try again.');
+                }
+            },
+            error: function (error) {
+                console.log('Error updating category:', error);
+                alert('Error updating category');
+            }
+        });
+    }
+
+</script>

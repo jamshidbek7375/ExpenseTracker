@@ -2,7 +2,6 @@
 using ExpenseTracker.Application.ViewModels.Category;
 using ExpenseTracker.Stores.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTracker.Controllers;
 
@@ -28,14 +27,9 @@ public class CategoriesController : Controller
     {
         var category = _store.GetById(request);
 
-        return View(category);
+        return Json(category);
     }
 
-    [HttpGet]
-    public IActionResult Create()
-    {
-        return View();
-    }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -43,19 +37,16 @@ public class CategoriesController : Controller
     {
         if (!ModelState.IsValid)
         {
-            return View(request);
+            var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                          .Select(e => e.ErrorMessage)
+                                          .ToList();
+
+            return Json(new { success = false, errors });
         }
 
         _store.Create(request);
 
-        return RedirectToAction(nameof(Index));
-    }
-
-    public IActionResult Edit([FromRoute] CategoryRequest request)
-    {
-        var category = _store.GetById(request);
-
-        return View(category);
+        return Json(new { success = true });
     }
 
     [HttpPost]
@@ -64,33 +55,29 @@ public class CategoriesController : Controller
     {
         if (id != request.Id)
         {
-            return BadRequest($"Route id does not match with body id.");
+            return Json(new { success = false, message = "Route id does not match with body id." });
         }
 
         if (!ModelState.IsValid)
         {
-            return View(request);
+            var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                          .Select(e => e.ErrorMessage)
+                                          .ToList();
+            return Json(new { success = false, errors });
         }
 
         _store.Update(request);
 
-        return RedirectToAction(nameof(Details), new { id = request.Id });
+        return Json(new { success = true });
     }
 
-    public IActionResult Delete([FromRoute] CategoryRequest request)
-    {
-        var category = _store.GetById(request);
-
-        return View(category);
-    }
-
-    [HttpPost, ActionName("Delete")]
+    [HttpDelete, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public IActionResult DeleteConfirmed([FromRoute] CategoryRequest request)
     {
         _store.Delete(request);
 
-        return RedirectToAction(nameof(Index));
+        return Json(new { success = true });
     }
 
     /// <summary>

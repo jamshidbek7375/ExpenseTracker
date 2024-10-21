@@ -4,15 +4,15 @@
 }
 
 <div class="confirmation-pending-container">
-    <h2>Confirmation Email Sent</h2>
+    <h2>New Confirmation Email Sent</h2>
     <p>Please check your email inbox and confirm your email address to complete the registration process.</p>
     <p>If you do not receive the email within a few minutes, please check your spam folder or try again.</p>
     <p>
         Resend email in <strong>00:<span id="resend-verification-code-timer">59</span></strong>
     </p>
-    <button class="btn btn-confirm" id="resend-verification-code" asp-action="ResendConfirmation" disabled>
+    <button class="btn btn-confirm" id="resend-verification-code" href="/email-confirmation" disabled>
         Resend Confirmation Email
-   </button>
+    </button>
 </div>
 
 <script>

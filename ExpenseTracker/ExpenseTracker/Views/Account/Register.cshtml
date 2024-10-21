@@ -12,6 +12,10 @@
             <form asp-action="Register" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="mb-3">
+                    <ejs-textbox id="username" placeholder="Username" ejs-for="UserName" floatLabelType="Always"></ejs-textbox>
+                    <span asp-validation-for="UserName" class="text-danger fs-6"></span>
+                </div>
+                <div class="mb-3">
                     <ejs-textbox id="email" placeholder="Email" ejs-for="Email" floatLabelType="Always"></ejs-textbox>
                     <span asp-validation-for="Email" class="text-danger fs-6"></span>
                 </div>

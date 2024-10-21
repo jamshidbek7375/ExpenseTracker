@@ -7,6 +7,8 @@
     var isDashboard = ViewData["isDashboard"] == null
         ? false
         : (bool)(ViewData["isDashboard"]);
+    var wallets = walletStore.GetAll(request);
+    var selectedWallet = wallets.FirstOrDefault();
 }
 
 <!DOCTYPE html>
@@ -14,7 +16,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ExpenseTracker</title>
+    <title>@ViewData["Title"] - Expense Tracker</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ExpenseTracker.styles.css" asp-append-version="true" />
@@ -44,13 +46,21 @@
                         <ejs-combobox id="wallets"
                                       name="wallets"
                                       width="250px"
-                                      dataSource="@ViewBag.Wallets"
-                                      value="@ViewBag.CurrentValue"
+                                      dataSource="@wallets"
+                                      value="@selectedWallet"
                                       allowObjectBinding="true">
+                            <e-combobox-fields value="Id" text="Name"></e-combobox-fields>
                         </ejs-combobox>
                     }
-                    <i class="fa-solid fa-bell"></i>
-                    <i class="fa-solid fa-message"></i>
+
+                    <div style="position:relative;display:inline-block;margin:20px 20px 10px 20px;">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="e-badge e-badge-danger e-badge-overlap e-badge-notification">8</span>
+                    </div>
+                    <div style="position:relative;display:inline-block;margin:20px 20px 10px 0px;">
+                        <i class="fa-solid fa-message"></i>
+                        <span class="e-badge e-badge-danger e-badge-overlap e-badge-notification">4</span>
+                    </div>
                     <div class="profile-pic" onclick="toggleDropdown()">
                         <img class="profile-pic" src="~/profile.jpg" />
                     </div>
@@ -63,7 +73,7 @@
                         <span>
                             <a asp-controller="Account" asp-action="Login" class="text-danger fs-6 fw-bold"><i class="fa-solid fa-right-from-bracket"></i> Chiqish</a>
                         </span>
-                    </div>                    
+                    </div>          
                 </div>
             </div>
         </nav>
@@ -133,6 +143,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/notification.js"></script>
     <ejs-scripts></ejs-scripts>
 
     @await RenderSectionAsync("Scripts", required: false)

@@ -8,6 +8,8 @@
     <meta name="supported-color-schemes" content="light dark" />
     <title></title>
     <style type="text/css" rel="stylesheet" media="all">
+        /* Base ------------------------------ */
+
         @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,700&display=swap");
 
         body {
@@ -115,7 +117,7 @@
             border-bottom: 10px solid #3869D4;
             border-left: 18px solid #3869D4;
             display: inline-block;
-            color: #FFFF !important;
+            color: #FFF;
             text-decoration: none;
             border-radius: 3px;
             box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
@@ -430,9 +432,16 @@
             supported-color-schemes: light dark;
         }
     </style>
+    <!--[if mso]>
+      <style type="text/css">
+        .f-fallback  {
+          font-family: Arial, sans-serif;
+        }
+      </style>
+    <![endif]-->
 </head>
 <body>
-    <span class="preheader">Use this link to reset your password. The link is only valid for 24 hours.</span>
+    <span class="preheader">{{invite_sender_name}} with {{invite_sender_organization_name}} has invited you to use Expense Tracker to collaborate with them.</span>
     <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
         <tr>
             <td align="center">
@@ -452,8 +461,8 @@
                                 <tr>
                                     <td class="content-cell">
                                         <div class="f-fallback">
-                                            <h1>Hi {{user_name}},</h1>
-                                            <p>You recently submitted registration request for your Expense Tracker account. Use the button below to confirm your email.</p>
+                                            <h1>Hi, {{name}}!</h1>
+                                            <p>{{invite_sender_name}} has invited you to use Expense Tracker to collaborate with them. Use the button below to set up your account and get started:</p>
                                             <!-- Action -->
                                             <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                                                 <tr>
@@ -463,23 +472,24 @@
                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                                                             <tr>
                                                                 <td align="center">
-                                                                    <a href="{{action_url}}" class="f-fallback button button--green" target="_blank">Confirm your email</a>
+                                                                    <a href="{{action_url}}" class="f-fallback button" target="_blank">Set up account</a>
                                                                 </td>
                                                             </tr>
                                                         </table>
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <p>For security, this request was received from a <strong>{{operating_system}}</strong>  device using <strong>{{browser_name}}</strong>. If you did not initiate registration, please ignore this email or <a href="{{support_url}}">contact support</a> if you have questions.</p>
+                                            <p>If you have any questions for {{invite_sender_name}}, you can reply to this email and it will go right to them. Alternatively, feel free to <a href="mailto:{{support_email}}">contact our customer success team</a> anytime. (We're lightning quick at replying.) We also offer <a href="{{live_chat_url}}">live chat</a> during business hours.</p>
                                             <p>
-                                                Thanks,
+                                                Welcome aboard,
                                                 <br>The Expense Tracker team
                                             </p>
+                                            <p><strong>P.S.</strong> Need help getting started? Check out our <a href="{{help_url}}">help documentation</a>.</p>
                                             <!-- Sub copy -->
                                             <table class="body-sub" role="presentation">
                                                 <tr>
                                                     <td>
-                                                        <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
+                                                        <p class="f-fallback sub">If you're having trouble with the button above, copy and paste the URL below into your web browser.</p>
                                                         <p class="f-fallback sub">{{action_url}}</p>
                                                     </td>
                                                 </tr>
@@ -496,9 +506,9 @@
                                 <tr>
                                     <td class="content-cell" align="center">
                                         <p class="f-fallback sub align-center">
-                                            Expense Tracker
-                                            <br>Beruniy 3A.
-                                            <br>Tashkent, Uzbekistan
+                                            [Company Name, LLC]
+                                            <br>1234 Street Rd.
+                                            <br>Suite 1234
                                         </p>
                                     </td>
                                 </tr>

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ExpenseTracker.Application.Requests.Auth.ResendConfirmationRequest;
+
+@{
     ViewData["Title"] = "Email Confirmation";
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 
@@ -17,12 +19,15 @@
 else
 {
     <div class="confirmation-container">
-        <h1 class="mt-5">Email Confirmation Failed</h1>
-        <p class="lead text-danger">@ViewData["ErrorMessage"]</p>
-        <p>Please try requesting a new confirmation email or contact support if you continue to experience issues.</p>
+        <form method="post" asp-action="ResendConfirmation">
+            <ejs-textbox id="email" ejs-for="Email" value="@ViewBag.Email" allowObjectBinding="true" type="hidden"></ejs-textbox>
+            <h1 class="mt-5">Email Confirmation Failed</h1>
+            <p class="lead text-danger">@ViewData["ErrorMessage"]</p>
+            <p>Please try requesting a new confirmation email or contact support if you continue to experience issues.</p>
 
-        <a href="@Url.Action("ResendConfirmationEmail", "Account")" class="btn btn-primary">
-            Resend Confirmation Email
-        </a>
+            <button class="btn btn-primary">
+                Resend Confirmation Email
+            </button>
+        </form>
     </div>
 }

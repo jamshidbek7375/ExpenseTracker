@@ -47,6 +47,7 @@ public static class DependencyInjection
                 options.Filters.Add(new ExceptionHandlerFilter());
                 options.Filters.Add(new HeaderResultFilter());
                 options.Filters.Add(new UserRequestFilter());
+                options.ModelBinderProviders.Insert(0, new CreateWalletShareRequestBinderProvider());
             })
             .AddJsonOptions(x =>
             {

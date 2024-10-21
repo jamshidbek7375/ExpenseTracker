@@ -1,10 +1,12 @@
-﻿using MimeKit;
+﻿using ExpenseTracker.Application.Models;
 
 namespace ExpenseTracker.Application.Services.Interfaces;
 
 public interface IEmailService
 {
-    void SendEmail(List<MailboxAddress> to, string subject, string content);
-    void SendConfirmation(string userName, string fallbackUrl);
-    void SendResetPassword(string userName, string fallbackUrl);
+    void SendWelcome(EmailMessage message);
+    void SendInvitation(EmailMessage message);
+    void SendWalletInvitation(EmailMessage message);
+    void SendEmailConfirmation(EmailMessage message, UserInfo userInfo);
+    void SendResetPassword(EmailMessage message, UserInfo userInfo);
 }

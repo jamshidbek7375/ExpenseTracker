@@ -1,6 +1,6 @@
 ﻿namespace ExpenseTracker.Domain.Exceptions
 {
-    public class EntityNotFoundException : Exception
+    public class EntityNotFoundException : ApplicationException
     {
         public EntityNotFoundException() : base() { }
         public EntityNotFoundException(string message) : base(message) { }

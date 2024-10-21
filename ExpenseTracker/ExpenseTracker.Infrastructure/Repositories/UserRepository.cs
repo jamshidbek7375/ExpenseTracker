@@ -25,10 +25,19 @@ internal sealed class UserRepository : IUserRepository
     {
         var user = _context.Users.FirstOrDefault(u => u.Id == id);
 
+        // TODO, throw in application logic when it returns null.
+        // Remove it from repository
         if (user is null)
         {
             throw new EntityNotFoundException($"User with id: {id} is not found");
         }
+
+        return user;
+    }
+
+    public IdentityUser<Guid>? GetByEmail(string email)
+    {
+        var user = _context.Users.FirstOrDefault(x => x.Email == email);
 
         return user;
     }

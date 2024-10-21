@@ -1,4 +1,5 @@
-﻿using ExpenseTracker.Application.Services;
+﻿using ExpenseTracker.Application.Hubs;
+using ExpenseTracker.Application.Services;
 using ExpenseTracker.Application.Services.Interfaces;
 using ExpenseTracker.Application.Stores;
 using ExpenseTracker.Application.Stores.Interfaces;
@@ -17,6 +18,9 @@ public static class DependencyInjection
         services.AddScoped<ITransferStore, TransferStore>();
         services.AddScoped<IWalletStore, WalletStore>();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+        services.AddSignalR();
+        services.AddSingleton<NotificationHub>();
 
         return services;
     }
